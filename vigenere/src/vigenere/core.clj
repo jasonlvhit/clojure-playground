@@ -42,9 +42,9 @@
   (reduce + (vals (map-vals (freq text 0 step)
                             (fn [x] (pow (/ x (/ (count text) step))))))))
 
-(defn e-iter [text]
+(defn e-iter [text step]
   (first (apply max-key second
-                (map-indexed vector (for [i (range 1 27)]
+                (map-indexed vector (for [i (range 1 step)]
                                       (get-ko text i))))))
 
 (defn get-max [M start step]
@@ -52,7 +52,7 @@
 
 (defn get-shifted [x]
   (- (to-num x)
-     (to-num (get (char-array "E") 0))))
+     (int \E)))
 
 (defn get-key [M step]
   (for [i (range 0 step)]
@@ -62,5 +62,5 @@
 
 ;(println (e (get-ko (encrypt (slurp "plaintext.txt") "ABC")  1)))
 ;(println (get-key (encrypt (slurp "plaintext.txt") "ABC") 3))
-;(println (e-iter (encrypt (slurp "plaintext.txt") "AAA")))
+;(println (e-iter (encrypt (slurp "plaintext.txt") "AAA") 128))
 ;(println (for [i (range 1 27)] (get-ko (encrypt (slurp "plaintext.txt") "ABCC") i)))
